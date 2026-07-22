@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voice AI Sandbox</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>🎙️ Voice AI Sandbox</h1>
+        <div class="engines" id="engines">connecting…</div>
+      </header>
+
+      <section class="settings">
+        <label for="voice">Voice</label>
+        <select id="voice" disabled></select>
+      </section>
+
+      <section class="transcript" id="transcript" aria-live="polite"></section>
+
+      <footer>
+        <div class="status" id="status">idle</div>
+        <button id="talk" class="talk" disabled>Talk</button>
+        <button id="reset" class="reset" title="Clear conversation">Reset</button>
+      </footer>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

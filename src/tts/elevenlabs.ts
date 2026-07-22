@@ -30,13 +30,13 @@ export class ElevenLabsEngine implements TTSEngine {
     return this.clientPromise;
   }
 
-  async synth(text: string): Promise<string> {
+  async synth(text: string, voice?: string): Promise<string> {
     const client = await this.client();
     await fs.mkdir(TMP_DIR, { recursive: true });
     const out = path.join(TMP_DIR, `eleven-${Date.now()}-${this.counter++}.mp3`);
 
     // `eleven_flash_v2_5` is the low-latency model — best fit for a voice loop.
-    const audio = await client.textToSpeech.convert(config.elevenLabsVoiceId, {
+    const audio = await client.textToSpeech.convert(voice ?? config.elevenLabsVoiceId, {
       text,
       modelId: "eleven_flash_v2_5",
       outputFormat: "mp3_44100_128",

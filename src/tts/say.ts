@@ -12,12 +12,14 @@ export class SayEngine implements TTSEngine {
   readonly name = "say";
   private counter = 0;
 
-  async synth(text: string): Promise<string> {
+  async synth(text: string, voice?: string): Promise<string> {
     await fs.mkdir(TMP_DIR, { recursive: true });
     const out = path.join(TMP_DIR, `say-${Date.now()}-${this.counter++}.aiff`);
+    // macOS `say` voices (`say -v ?`) differ from Kokoro's; pass through if given.
+    const args = voice ? ["-v", voice, "-o", out, text] : ["-o", out, text];
 
     await new Promise<void>((resolve, reject) => {
-      const proc = spawn("say", ["-o", out, text], { stdio: "ignore" });
+      const proc = spawn("say", args, { stdio: "ignore" });
       proc.on("error", reject);
       proc.on("close", (code) =>
         code === 0 ? resolve() : reject(new Error(`say exited ${code}`)),

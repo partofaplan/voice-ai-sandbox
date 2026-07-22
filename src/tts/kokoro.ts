@@ -24,12 +24,12 @@ export class KokoroEngine implements TTSEngine {
     return this.ttsPromise;
   }
 
-  async synth(text: string): Promise<string> {
+  async synth(text: string, voice?: string): Promise<string> {
     const tts = await this.load();
     await fs.mkdir(TMP_DIR, { recursive: true });
     const out = path.join(TMP_DIR, `kokoro-${Date.now()}-${this.counter++}.wav`);
 
-    const audio = await tts.generate(text, { voice: config.kokoroVoice });
+    const audio = await tts.generate(text, { voice: voice ?? config.kokoroVoice });
     await audio.save(out);
     return out;
   }
