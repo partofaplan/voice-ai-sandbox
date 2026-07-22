@@ -1,0 +1,31 @@
+{
+  "name": "voice-ai-sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local/hybrid voice AI loop: mic -> STT -> LLM -> TTS -> speaker",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "smoke:llm": "tsx src/scripts/smoke-llm.ts",
+    "smoke:tts": "tsx src/scripts/smoke-tts.ts",
+    "smoke:stt": "tsx src/scripts/smoke-stt.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.68.0",
+    "dotenv": "^16.4.7",
+    "node-record-lpcm16": "^1.0.1"
+  },
+  "optionalDependencies": {
+    "@deepgram/sdk": "^3.9.0",
+    "@elevenlabs/elevenlabs-js": "^2.4.0",
+    "kokoro-js": "^1.2.0",
+    "nodejs-whisper": "^0.2.9",
+    "ollama": "^0.5.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
