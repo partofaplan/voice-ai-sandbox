@@ -1,10 +1,15 @@
-import { ClaudeEngine } from "../llm/claude.js";
 import { config } from "../config.js";
+import { makeEngines } from "../engines.js";
 
-/** Confirms Claude API auth + streaming work before any audio is wired up. */
+/**
+ * Confirms the configured LLM engine (LLM_ENGINE in .env) can stream a reply.
+ * Claude → verifies API auth; Ollama → verifies the local server + model.
+ */
 async function main() {
-  console.log(`Testing Claude (${config.anthropicModel})…\n`);
-  const llm = new ClaudeEngine();
+  const { llm } = makeEngines();
+  const model = llm.name === "ollama" ? config.ollamaModel : config.anthropicModel;
+  console.log(`Testing LLM engine "${llm.name}" (${model})…\n`);
+
   process.stdout.write("🤖 ");
   for await (const chunk of llm.respond([
     { role: "user", content: "Say hello and tell me one fun fact in one sentence." },
